@@ -1,9 +1,15 @@
 package petmanager.model;
-
-
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+
+        ArrayList<Animal> pets = new ArrayList<>();
+
+
+
+        //Teste de subclasses
+
         Cachorro dog = new Cachorro("Thor", 3,"Doberman", true);
         Gato cat = new Gato("Poro", 2, "Branco", false);
 
@@ -12,5 +18,18 @@ public class Main {
 
         System.out.println(cat);
         System.out.println("Som: " + cat.emitirSom());
+
+        //Teste de polimorfismo
+
+        pets.add(new Cachorro("Rex", 5, "Golden Retriever", true));
+        pets.add(new Gato("Mimi", 3, "Preto", true));
+        pets.add(new Cachorro("Jade", 2, "Poodle", false));
+
+        for (Animal pet : pets) {
+            System.out.println(pet);
+            System.out.println("Som: " + pet.emitirSom());
+            System.out.println("--------------------");
+        }
+
     }
 }
