@@ -47,6 +47,9 @@ public abstract class Animal {
 
     public abstract String emitirsom();
 
-
+    @Override
+    public String toString() {
+        return tipo + "-" + nome + " (" + idade + " anos)";
+    }
 }
 
