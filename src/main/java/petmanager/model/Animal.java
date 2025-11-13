@@ -45,7 +45,7 @@ public abstract class Animal {
         this.peso = peso;
     }
 
-    public abstract String emitirsom();
+    public abstract String emitirSom();
 
     @Override
     public String toString() {
