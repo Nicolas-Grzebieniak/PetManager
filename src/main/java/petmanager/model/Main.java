@@ -11,6 +11,6 @@ public class Main {
         System.out.println("Som: " + dog.emitirSom());
 
         System.out.println(cat);
-        System.out.println("Som: " + cat.emitirSom()
+        System.out.println("Som: " + cat.emitirSom());
     }
 }
