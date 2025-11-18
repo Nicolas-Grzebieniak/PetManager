@@ -13,8 +13,6 @@ import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionListener;
-import service.ArquivoService;
 
 public class MainFrame extends JFrame {
 
