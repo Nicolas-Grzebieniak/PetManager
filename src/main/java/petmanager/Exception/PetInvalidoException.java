@@ -1,4 +1,4 @@
-package Exception;
+package petmanager.Exception;
 
 public class PetInvalidoException extends Exception {
 

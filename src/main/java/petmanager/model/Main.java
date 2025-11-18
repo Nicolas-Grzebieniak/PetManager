@@ -1,7 +1,7 @@
 package petmanager.model;
 import java.util.ArrayList;
-import Exception.CadastroService;
-import Exception.PetInvalidoException;
+import petmanager.Exception.CadastroService;
+import petmanager.Exception.PetInvalidoException;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package Exception;
+package petmanager.Exception;
 import petmanager.model.Cachorro;
 import petmanager.model.Gato;
 
