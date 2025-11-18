@@ -5,12 +5,15 @@ public abstract class Animal {
     private int idade;
     private String tipo;
     private double peso;
+    private String observacoes;
 
-    public Animal(String nome, int idade, String tipo) {
+    // ✔ Construtor corrigido com observações
+    public Animal(String nome, int idade, String tipo, String observacoes) {
         this.nome = nome;
         this.idade = idade;
         this.tipo = tipo;
-        this.peso = peso;
+        this.observacoes = observacoes;
+        this.peso = 0.0;
     }
 
     public String getNome() {
@@ -45,11 +48,23 @@ public abstract class Animal {
         this.peso = peso;
     }
 
+    // ✔ GETTER e SETTER de OBSERVAÇÕES
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
+
+    // Método abstrato
     public abstract String emitirSom();
 
     @Override
     public String toString() {
-        return tipo + "-" + nome + " (" + idade + " anos)";
+        return tipo + " - " + nome + " (" + idade + " anos)" +
+                (observacoes != null && !observacoes.isEmpty() ? " | Obs: " + observacoes : "");
     }
 }
+
 

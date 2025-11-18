@@ -1,60 +1,88 @@
 package petmanager.view;
 
 import petmanager.model.Animal;
+import petmanager.model.Cachorro;
+import petmanager.model.Gato;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public class ListaFrame extends JFrame {
 
-    private JTextArea txtLista;
-    private ArrayList<Animal> animais;
+    private List<Animal> listaAnimais;
+    private DefaultTableModel model;
 
-    public ListaFrame() {
-        this.animais = animais;
+    public ListaFrame(List<Animal> listaAnimais) {
 
-        setTitle("Lista de Animais");
-        setSize(400, 300);
+        this.listaAnimais = listaAnimais;
+
+        setTitle("Lista de Animais Cadastrados");
+        setSize(950, 450);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(new BorderLayout());
 
-        setLayout(new BorderLayout(10, 10));
+        String[] colunas = {
+                "Nome", "Idade", "Tipo",
+                "Raça", "Cor/Pelo",
+                "Vacinado", "Castrado",
+                "Observações"
+        };
 
-        txtLista = new JTextArea();
-        txtLista.setEditable(false);
-        txtLista.setFont(new Font("Arial", Font.PLAIN, 14));
-        add(new JScrollPane(txtLista), BorderLayout.CENTER);
+        model = new DefaultTableModel(colunas, 0);
+        JTable tabela = new JTable(model);
+        JScrollPane scrollPane = new JScrollPane(tabela);
 
+        add(scrollPane, BorderLayout.CENTER);
+
+        // ---------------- BOTÃO ATUALIZAR ----------------
         JButton btnAtualizar = new JButton("Atualizar Lista");
-        btnAtualizar.addActionListener(e -> atualizarLista());
-
-        JButton btnFechar = new JButton("Fechar");
-        btnFechar.addActionListener(e -> dispose());
+        btnAtualizar.addActionListener(e -> atualizarTabela());
 
         JPanel painelBotoes = new JPanel();
         painelBotoes.add(btnAtualizar);
-        painelBotoes.add(btnFechar);
 
         add(painelBotoes, BorderLayout.SOUTH);
 
-        atualizarLista(); // carregar lista ao abrir
+        atualizarTabela(); // carrega ao abrir
     }
 
-    private void atualizarLista() {
-        txtLista.setText("");
+    // ---------------- MÉTODO PARA RECARREGAR TABELA ----------------
+    private void atualizarTabela() {
 
-        if (animais.isEmpty()) {
-            txtLista.setText("Nenhum animal cadastrado.");
-            return;
+        model.setRowCount(0); // limpa tabela
+
+        for (Animal animal : listaAnimais) {
+
+            String tipo = animal instanceof Cachorro ? "Cachorro" : "Gato";
+
+            String raca = "-";
+            String corPelo = "-";
+            String vacinado = "-";
+            String castrado = "-";
+            String observacoes = animal.getObservacoes();
+
+            if (animal instanceof Cachorro c) {
+                raca = c.getRaca();
+                vacinado = c.isVacinado() ? "Sim" : "Não";
+            }
+
+            if (animal instanceof Gato g) {
+                corPelo = g.getCorPelo();
+                castrado = g.isCastrado() ? "Sim" : "Não";
+            }
+
+            model.addRow(new Object[]{
+                    animal.getNome(),
+                    animal.getIdade(),
+                    tipo,
+                    raca,
+                    corPelo,
+                    vacinado,
+                    castrado,
+                    observacoes
+            });
         }
-
-        StringBuilder sb = new StringBuilder();
-        for (Animal a : animais) {
-            sb.append(a.toString()).append("\n");
-        }
-
-        txtLista.setText(sb.toString());
     }
 }
-

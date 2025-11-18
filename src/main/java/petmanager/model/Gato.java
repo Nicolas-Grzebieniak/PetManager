@@ -1,15 +1,17 @@
 package petmanager.model;
 
-public class Gato extends Animal{
+public class Gato extends Animal {
+
     private String corPelo;
     private boolean castrado;
 
-    public Gato(String nome, int idade, String corPelo, boolean castrado) {
-        super(nome, idade, "Gato");
+    public Gato(String nome, int idade, String corPelo, boolean castrado, String observacoes) {
+        super(nome, idade, "Gato", observacoes);
         this.corPelo = corPelo;
         this.castrado = castrado;
     }
 
+    // GETTERS E SETTERS
     public String getCorPelo() {
         return corPelo;
     }
@@ -33,6 +35,10 @@ public class Gato extends Animal{
 
     @Override
     public String toString() {
-        return super.toString() + " | Cor pelo: " + corPelo + (castrado ? " | Castrado ✅" : " | Não castrado ⚠\uFE0F");
+        return "Gato - " + getNome() +
+                " (" + getIdade() + " anos)" +
+                " | Cor do pelo: " + corPelo +
+                (castrado ? " | Castrado" : " | Não castrado") +
+                " | Obs: " + getObservacoes();
     }
 }

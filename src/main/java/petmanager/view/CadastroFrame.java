@@ -1,5 +1,6 @@
-package petmanager.ui;
+package petmanager.view;
 
+import petmanager.model.Animal;
 import petmanager.model.Cachorro;
 import petmanager.model.Gato;
 import petmanager.Exception.CadastroService;
@@ -11,6 +12,8 @@ import java.util.List;
 
 public class CadastroFrame extends JFrame {
 
+    private List<Animal> listaAnimais;
+
     private JTextField txtNome;
     private JTextField txtIdade;
     private JComboBox<String> comboTipo;
@@ -21,17 +24,17 @@ public class CadastroFrame extends JFrame {
     private JTextField txtCorPelo;
     private JCheckBox checkCastrado;
 
-    private List<Object> listaAnimais;
+    private JTextArea txtObservacoes; // NOVO CAMPO
 
-    public CadastroFrame() {
-        this.listaAnimais = listaAnimais;
+    public CadastroFrame(List<Animal> listaAnimais) {
+        this.listaAnimais = listaAnimais;  // RECEBE LISTA DO MAINFRAME
 
         setTitle("Cadastro de Animais");
-        setSize(400, 350);
+        setSize(400, 450);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(10, 2, 5, 5));
+        panel.setLayout(new GridLayout(12, 2, 5, 5));
         add(panel);
 
         // Campos básicos
@@ -65,44 +68,44 @@ public class CadastroFrame extends JFrame {
         panel.add(checkCastrado);
         panel.add(new JLabel("")); // espaço
 
+        // Novo campo Observações
+        panel.add(new JLabel("Observações:"));
+        txtObservacoes = new JTextArea(3, 20);
+        panel.add(new JScrollPane(txtObservacoes));
+
         JButton btnCadastrar = new JButton("Cadastrar");
         panel.add(btnCadastrar);
 
         JButton btnVoltar = new JButton("Voltar");
         panel.add(btnVoltar);
 
-        // Listener botão cadastrar
         btnCadastrar.addActionListener(e -> cadastrarAnimal());
-
-        // Listener botão voltar
         btnVoltar.addActionListener(e -> dispose());
 
         setVisible(true);
     }
 
     private void cadastrarAnimal() {
-
         try {
             String nome = txtNome.getText();
             int idade = Integer.parseInt(txtIdade.getText());
             String tipo = (String) comboTipo.getSelectedItem();
+            String observacoes = txtObservacoes.getText(); // pega observações
 
             if (tipo.equals("Cachorro")) {
-
                 String raca = txtRaca.getText();
                 boolean vacinado = checkVacinado.isSelected();
 
-                Cachorro cachorro = CadastroService.criarCachorro(nome, idade, raca, vacinado);
+                Cachorro cachorro = CadastroService.criarCachorro(nome, idade, raca, vacinado, observacoes);
                 listaAnimais.add(cachorro);
 
                 JOptionPane.showMessageDialog(this, "Cachorro cadastrado com sucesso!");
 
             } else {
-
                 String corPelo = txtCorPelo.getText();
                 boolean castrado = checkCastrado.isSelected();
 
-                Gato gato = CadastroService.criarGato(nome, idade, corPelo, castrado);
+                Gato gato = CadastroService.criarGato(nome, idade, corPelo, castrado, observacoes);
                 listaAnimais.add(gato);
 
                 JOptionPane.showMessageDialog(this, "Gato cadastrado com sucesso!");
@@ -112,7 +115,6 @@ public class CadastroFrame extends JFrame {
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Idade precisa ser um número inteiro.");
-
         } catch (PetInvalidoException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -125,6 +127,6 @@ public class CadastroFrame extends JFrame {
         txtCorPelo.setText("");
         checkVacinado.setSelected(false);
         checkCastrado.setSelected(false);
+        txtObservacoes.setText("");
     }
 }
-

@@ -12,8 +12,8 @@ public class Main {
 
         //Teste de subclasses ------------------------------------------------------------
 
-        Cachorro dog = new Cachorro("Thor", 3,"Doberman", true);
-        Gato cat = new Gato("Poro", 2, "Branco", false);
+        Cachorro dog = new Cachorro("Thor", 3,"Doberman", true,"");
+        Gato cat = new Gato("Poro", 2, "Branco", false, "");
 
         System.out.println(dog);
         System.out.println("Som: " + dog.emitirSom());
@@ -23,9 +23,9 @@ public class Main {
 
         //Teste de polimorfismo -----------------------------------------------------------
 
-        pets.add(new Cachorro("Rex", 5, "Golden Retriever", true));
-        pets.add(new Gato("Mimi", 3, "Preto", true));
-        pets.add(new Cachorro("Jade", 2, "Poodle", false));
+        pets.add(new Cachorro("Rex", 5, "Golden Retriever", true,""));
+        pets.add(new Gato("Mimi", 3, "Preto", true, ""));
+        pets.add(new Cachorro("Jade", 2, "Poodle", false,""));
 
         for (Animal pet : pets) {
             System.out.println(pet);
@@ -36,7 +36,7 @@ public class Main {
         //Teste de exception -------------------------------------------------------------
 
         try {
-            Cachorro dog1 = CadastroService.criarCachorro("", 3, "Pug", true);
+            Cachorro dog1 = CadastroService.criarCachorro("", 3, "Pug", true, dog.getObservacoes() );
             System.out.println("Cachorro criado: " + dog);
 
         } catch (PetInvalidoException e) {

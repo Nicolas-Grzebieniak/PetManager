@@ -1,11 +1,12 @@
 package petmanager.model;
 
-public class Cachorro extends Animal{
+public class Cachorro extends Animal {
+
     private String raca;
     private boolean vacinado;
 
-    public Cachorro(String nome, int idade, String raca, boolean vacinado) {
-        super(nome, idade, "Cachorro");
+    public Cachorro(String nome, int idade, String raca, boolean vacinado, String observacoes) {
+        super(nome, idade, "Cachorro", observacoes);
         this.raca = raca;
         this.vacinado = vacinado;
     }
@@ -33,6 +34,10 @@ public class Cachorro extends Animal{
 
     @Override
     public String toString() {
-        return super.toString() + " | Raça: " + raca + (vacinado ? " | Vacinado ✅" : " | Não vacinado ⚠\uFE0F");
+        return "Cachorro - " + getNome() +
+                " (" + getIdade() + " anos)" +
+                " | Raça: " + raca +
+                (vacinado ? " | Vacinado" : " | Não vacinado") +
+                " | Obs: " + getObservacoes();
     }
 }
