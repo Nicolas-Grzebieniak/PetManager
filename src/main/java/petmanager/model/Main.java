@@ -9,9 +9,9 @@ public class Main {
 
         ArrayList<Animal> pets = new ArrayList<>();
 
-        // Teste de subclasses ------------------------------------------------------------
+        // Teste de subclasses --------------------------------------------------------------------------------------
         // Cachorro AGORA precisa de 7 argumentos
-        Cachorro dog = new Cachorro("Thor", 3, "Doberman", true, true, "Marrom e Preto", "Cão de guarda.");
+        Cachorro dog = new Cachorro("Thor", 3, "Doberman", true, "Marrom e Preto");
 
         // Gato AGORA precisa de 6 argumentos
         Gato cat = new Gato("Poro", 2, "Branco", false, true, "Gato dócil, castrado.");
@@ -22,24 +22,24 @@ public class Main {
         System.out.println(cat);
         System.out.println("Som: " + cat.emitirSom());
 
-        // Teste de polimorfismo -----------------------------------------------------------
+        // Teste de polimorfismo---------------------------------------------------------------------------------------
 
         // Cachorro (7 argumentos)
-        pets.add(new Cachorro("Rex", 5, "Golden Retriever", true, false, "Dourado", "Gosta de água."));
+        pets.add(new Cachorro("Rex", 5, "Golden Retriever", true, "Dourado"));
 
         // Gato (6 argumentos)
         pets.add(new Gato("Mimi", 3, "Preto", true, true, "Muito agitada."));
 
         // Cachorro (7 argumentos)
-        pets.add(new Cachorro("Jade", 2, "Poodle", false, false, "Branco", "Precisa de tosa."));
+        pets.add(new Cachorro("Jade", 2, "Poodle", false, "Branco"));
 
         for (Animal pet : pets) {
             System.out.println(pet);
-            System.out.println("Som: " + pet.emitirSom());
+            System.out.println("Som: " + pet.emitirSom()); // <--- A MÁGICA ACONTECE AQUI!!!
             System.out.println("--------------------");
         }
 
-        // Teste de exception -------------------------------------------------------------
+        // Teste de exception -----------------------------------------------------------------------------------------
 
         try {
             // Chamada do CadastroService (7 argumentos)

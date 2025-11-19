@@ -3,6 +3,9 @@ package petmanager.Exception;
 import petmanager.model.Cachorro;
 import petmanager.model.Gato;
 
+//Caiu em desuso!!!!
+
+
 public class CadastroService {
 
     // Validação básica para qualquer animal

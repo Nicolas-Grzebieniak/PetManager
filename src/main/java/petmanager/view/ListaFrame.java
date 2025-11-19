@@ -37,7 +37,7 @@ public class ListaFrame extends JFrame {
 
         add(scrollPane, BorderLayout.CENTER);
 
-        // ---------------- BOTÃO ATUALIZAR ----------------
+        //BOTÃO ATUALIZAR-----------------------------------------------------------------------------------------
         JButton btnAtualizar = new JButton("Atualizar Lista");
         btnAtualizar.addActionListener(e -> atualizarTabela());
 
@@ -49,12 +49,12 @@ public class ListaFrame extends JFrame {
         atualizarTabela(); // carrega ao abrir
     }
 
-    // ---------------- MÉTODO PARA RECARREGAR TABELA (CORRIGIDO) ----------------
+    // MÉTODO PARA RECARREGAR TABELA--------------------------------------------------------------------------------
     private void atualizarTabela() {
 
         model.setRowCount(0); // limpa tabela
 
-        for (Animal animal : listaAnimais) {
+        for (Animal animal : listaAnimais) { // Iteração polimórfica <------
 
             String tipo = animal instanceof Cachorro ? "Cachorro" : "Gato";
 
@@ -65,22 +65,22 @@ public class ListaFrame extends JFrame {
             String castrado = "-";
             String observacoes = animal.getObservacoes();
 
-            // 1. Lógica para CACHORRO
+            //CACHORRO-------------------------------------------------------------------------------------------------
             if (animal instanceof Cachorro c) {
                 raca = c.getRaca();
                 vacinado = c.isVacinado() ? "Sim" : "Não";
 
-                // CORREÇÃO: O Cachorro agora tem estes atributos e deve preenchê-los
+                //O Cachorro agora tem estes atributos
                 castrado = c.isCastrado() ? "Sim" : "Não";
                 corPelo = c.getCorPelo();
             }
 
-            // 2. Lógica para GATO
+            //GATO----------------------------------------------------------------------------------------------------
             if (animal instanceof Gato g) {
                 corPelo = g.getCorPelo();
                 castrado = g.isCastrado() ? "Sim" : "Não";
 
-                // CORREÇÃO: O Gato agora tem 'vacinado' e deve preenchê-lo
+                //O Gato agora tem 'vacinado'
                 vacinado = g.isVacinado() ? "Sim" : "Não";
 
                 // Garantir que a coluna Raça não mostre lixo se o valor padrão for alterado

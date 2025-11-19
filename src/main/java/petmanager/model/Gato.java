@@ -4,17 +4,22 @@ public class Gato extends Animal {
 
     private String corPelo;
     private boolean castrado;
-    private boolean vacinado; // <-- NOVO ATRIBUTO
+    private boolean vacinado;
 
-    // Construtor atualizado para incluir vacinado
+    // Construtor--------------------------------------------------------------------------------------------------
     public Gato(String nome, int idade, String corPelo, boolean castrado, boolean vacinado, String observacoes) {
-        super(nome, idade, "Gato", observacoes);
+        super(nome, idade, "Gato", castrado, observacoes);
         this.corPelo = corPelo;
         this.castrado = castrado;
-        this.vacinado = vacinado; // <-- NOVO
+        this.vacinado = vacinado;
     }
 
-    // GETTERS E SETTERS
+    public Gato(String nome, int idade, String corPelo, boolean castrado, String observacoes) {
+        super(nome, idade, corPelo, castrado, observacoes);
+    }
+    //--------------------------------------------------------------------------------------------------------------
+    //
+    //Get e Set------------------------------------------------------------------------------------------------------
     public String getCorPelo() {
         return corPelo;
     }
@@ -31,7 +36,6 @@ public class Gato extends Animal {
         this.castrado = castrado;
     }
 
-    // NOVO GETTER E SETTER
     public boolean isVacinado() {
         return vacinado;
     }
@@ -39,13 +43,16 @@ public class Gato extends Animal {
     public void setVacinado(boolean vacinado) {
         this.vacinado = vacinado;
     }
-    // FIM NOVO GETTER E SETTER
-
+    //----------------------------------------------------------------------------------------------------------------
+    //
+    //Método abstrato-------------------------------------------------------------------------------------------------
     @Override
     public String emitirSom() {
         return "Miau!";
     }
-
+    //----------------------------------------------------------------------------------------------------------------
+    //
+    //toString--------------------------------------------------------------------------------------------------------
     @Override
     public String toString() {
         return "Gato - " + getNome() +

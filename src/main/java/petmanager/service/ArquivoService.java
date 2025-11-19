@@ -42,14 +42,14 @@ public class ArquivoService {
     private static String serializar(Animal a) {
 
         // CACHORRO (Agora com Castrado e CorPelo)
-        if (a instanceof Cachorro c) {
+        if (a instanceof Cachorro c) { //<---- Onde está o polimorfismo!!!
             return "CACHORRO;" +
                     c.getNome() + ";" +
                     c.getIdade() + ";" +
                     c.getRaca() + ";" +
                     c.isVacinado() + ";" +
-                    c.isCastrado() + ";" +  // <-- NOVO: Castrado
-                    c.getCorPelo() + ";" +  // <-- NOVO: CorPelo
+                    c.isCastrado() + ";" +
+                    c.getCorPelo() + ";" +
                     c.getObservacoes();
         }
 
@@ -60,7 +60,7 @@ public class ArquivoService {
                     g.getIdade() + ";" +
                     g.getCorPelo() + ";" +
                     g.isCastrado() + ";" +
-                    g.isVacinado() + ";" +  // <-- NOVO: Vacinado
+                    g.isVacinado() + ";" +
                     g.getObservacoes();
         }
         return null;
@@ -82,12 +82,12 @@ public class ArquivoService {
 
             String raca = p[3];
             boolean vacinado = Boolean.parseBoolean(p[4]);
-            boolean castrado = Boolean.parseBoolean(p[5]); // <-- NOVO: Castrado
-            String corPelo = p[6];                        // <-- NOVO: CorPelo
+            boolean castrado = Boolean.parseBoolean(p[5]);
+            String corPelo = p[6];
             String obs = p.length > 7 ? p[7] : "";
 
             // ATENÇÃO: Construtor deve bater com 7 argumentos
-            return new Cachorro(nome, idade, raca, vacinado, castrado, corPelo, obs);
+            return new Cachorro(nome, idade, raca, vacinado, corPelo);
         }
 
         if (tipo.equals("GATO")) {
@@ -95,7 +95,7 @@ public class ArquivoService {
 
             String corPelo = p[3];
             boolean castrado = Boolean.parseBoolean(p[4]);
-            boolean vacinado = Boolean.parseBoolean(p[5]); // <-- NOVO: Vacinado
+            boolean vacinado = Boolean.parseBoolean(p[5]);
             String obs = p.length > 6 ? p[6] : "";
 
             // ATENÇÃO: Construtor deve bater com 6 argumentos

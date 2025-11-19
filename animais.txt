@@ -1,1 +1,1 @@
-CACHORRO;Thor;3;doberman;true;3x ao dia
+CACHORRO;Thor José;3;Dobermann;true;false;Preto;

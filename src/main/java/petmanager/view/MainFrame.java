@@ -20,7 +20,7 @@ public class MainFrame extends JFrame   {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // ---------- TÍTULO ----------
+        // título
         JLabel titulo = new JLabel("Pet Manager", SwingConstants.CENTER);
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         add(titulo, BorderLayout.NORTH);
@@ -50,7 +50,7 @@ public class MainFrame extends JFrame   {
 
         add(painelBotoes, BorderLayout.CENTER);
 
-        // ---------- AÇÕES ----------
+        // botões--------------------------------------------------------------------------------------------------
 
         btnCadastro.addActionListener(e ->
                 new CadastroFrame(listaAnimais).setVisible(true)

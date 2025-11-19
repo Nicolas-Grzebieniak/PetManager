@@ -7,22 +7,24 @@ public abstract class Animal {
     private double peso;
     private String observacoes;
 
-    //  Construtor corrigido com observações
-    public Animal(String nome, int idade, String tipo, String observacoes) {
+    //Construtor -----------------------------------------------------------------------------------------------
+    public Animal(String nome, int idade, String tipo, boolean castrado, String observacoes) {
         this.nome = nome;
         this.idade = idade;
         this.tipo = tipo;
         this.observacoes = observacoes;
-        this.peso = 0.0;
+        this.peso = 0.0; //inicio zerado
     }
-
+    //--------------------------------------------------------------------------------------------------------------
+    //
+    // Getters e Setters (As portas de acesso)------------------------------------------------------------------------
     public String getNome() {
         return nome;
-    }
+    } // get: Permite que outras classes leiam o valor
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
+    } // set: Permite alterar o valor.
 
     public int getIdade() {
         return idade;
@@ -48,7 +50,6 @@ public abstract class Animal {
         this.peso = peso;
     }
 
-    // ✔ GETTER e SETTER de OBSERVAÇÕES
     public String getObservacoes() {
         return observacoes;
     }
@@ -56,14 +57,17 @@ public abstract class Animal {
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
     }
-
-    // Método abstrato
+    //----------------------------------------------------------------------------------------------------------------
+    //
+    // Método abstrato------------------------------------------------------------------------------------------------
     public abstract String emitirSom();
-
+    //----------------------------------------------------------------------------------------------------------------
+    //
+    //toString--------------------------------------------------------------------------------------------------------
     @Override
     public String toString() {
         return tipo + " - " + nome + " (" + idade + " anos)" +
-                (observacoes != null && !observacoes.isEmpty() ? " | Obs: " + observacoes : "");
+                (observacoes != null && !observacoes.isEmpty() ? " | Obs: " + observacoes : ""); //é um "if/else" numa linha só.
     }
 }
 

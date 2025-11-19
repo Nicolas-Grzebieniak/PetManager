@@ -4,18 +4,20 @@ public class Cachorro extends Animal {
 
     private String raca;
     private boolean vacinado;
-    private boolean castrado;  // <-- NOVO ATRIBUTO
-    private String corPelo;    // <-- NOVO ATRIBUTO
+    private boolean castrado;
+    private String corPelo;
 
-    // Construtor atualizado para incluir castrado e corPelo
-    public Cachorro(String nome, int idade, String raca, boolean vacinado, boolean castrado, String corPelo, String observacoes) {
-        super(nome, idade, "Cachorro", observacoes);
+    // Construtor ---------------------------------------------------------------------------------------------------
+    public Cachorro(String nome, int idade, String raca, boolean vacinado, String corPelo) {
+        super(nome, idade, "Cachorro", true, "");
         this.raca = raca;
         this.vacinado = vacinado;
         this.castrado = castrado;
         this.corPelo = corPelo;
     }
-
+    //----------------------------------------------------------------------------------------------------------------
+    //
+    //Get e Set-------------------------------------------------------------------------------------------------------
     public String getRaca() {
         return raca;
     }
@@ -32,7 +34,6 @@ public class Cachorro extends Animal {
         this.vacinado = vacinado;
     }
 
-    // NOVOS GETTERS E SETTERS
     public boolean isCastrado() {
         return castrado;
     }
@@ -48,13 +49,16 @@ public class Cachorro extends Animal {
     public void setCorPelo(String corPelo) {
         this.corPelo = corPelo;
     }
-    // FIM NOVOS GETTERS E SETTERS
-
+    //----------------------------------------------------------------------------------------------------------------
+    //
+    //Método abstrato-------------------------------------------------------------------------------------------------
     @Override
     public String emitirSom() {
         return "Au Au";
     }
-
+    //----------------------------------------------------------------------------------------------------------------
+    //
+    //toString acesso aos dados----------------------------------------------------------------------------------------
     @Override
     public String toString() {
         return "Cachorro - " + getNome() +

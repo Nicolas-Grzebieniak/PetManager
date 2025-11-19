@@ -3,9 +3,6 @@ package petmanager.service;
 import petmanager.model.Cachorro;
 import petmanager.model.Gato;
 import petmanager.Exception.PetInvalidoException;
-import petmanager.model.Animal; // Import Animal se for necessário
-
-import java.util.List; // Import List se for necessário
 
 public class CadastroService {
 
@@ -15,8 +12,8 @@ public class CadastroService {
             int idade,
             String raca,
             boolean vacinado,
-            boolean castrado,      // <-- NOVO
-            String corPelo,        // <-- NOVO
+            boolean castrado,
+            String corPelo,
             String observacoes
     ) throws PetInvalidoException {
 
@@ -26,7 +23,7 @@ public class CadastroService {
         }
 
         // Passa 7 argumentos para o construtor do Cachorro
-        return new Cachorro(nome, idade, raca, vacinado, castrado, corPelo, observacoes);
+        return new Cachorro(nome, idade, raca, vacinado, corPelo);
     }
 
     // Método que cria Gato (6 argumentos)
@@ -35,7 +32,7 @@ public class CadastroService {
             int idade,
             String corPelo,
             boolean castrado,
-            boolean vacinado,      // <-- NOVO
+            boolean vacinado,
             String observacoes
     ) throws PetInvalidoException {
 
