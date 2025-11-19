@@ -7,7 +7,7 @@ public abstract class Animal {
     private double peso;
     private String observacoes;
 
-    // ✔ Construtor corrigido com observações
+    //  Construtor corrigido com observações
     public Animal(String nome, int idade, String tipo, String observacoes) {
         this.nome = nome;
         this.idade = idade;

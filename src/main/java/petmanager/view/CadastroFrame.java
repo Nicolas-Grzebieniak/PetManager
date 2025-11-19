@@ -3,7 +3,7 @@ package petmanager.view;
 import petmanager.model.Animal;
 import petmanager.model.Cachorro;
 import petmanager.model.Gato;
-import petmanager.Exception.CadastroService;
+import petmanager.service.CadastroService; // <-- Verifique se este é o pacote correto!
 import petmanager.Exception.PetInvalidoException;
 
 import javax.swing.*;
@@ -24,60 +24,65 @@ public class CadastroFrame extends JFrame {
     private JTextField txtCorPelo;
     private JCheckBox checkCastrado;
 
-    private JTextArea txtObservacoes; // NOVO CAMPO
+    private JTextArea txtObservacoes;
+
+    private JPanel painelPrincipal;
 
     public CadastroFrame(List<Animal> listaAnimais) {
-        this.listaAnimais = listaAnimais;  // RECEBE LISTA DO MAINFRAME
+        this.listaAnimais = listaAnimais;
 
         setTitle("Cadastro de Animais");
-        setSize(400, 450);
+        setSize(500, 550);
         setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(12, 2, 5, 5));
-        add(panel);
+        painelPrincipal = new JPanel();
+        painelPrincipal.setLayout(new GridLayout(12, 2, 5, 5));
+
+        JScrollPane scrollFrame = new JScrollPane(painelPrincipal);
+        scrollFrame.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        add(scrollFrame, BorderLayout.CENTER);
 
         // Campos básicos
-        panel.add(new JLabel("Nome:"));
+        painelPrincipal.add(new JLabel("Nome:"));
         txtNome = new JTextField();
-        panel.add(txtNome);
+        painelPrincipal.add(txtNome);
 
-        panel.add(new JLabel("Idade:"));
+        painelPrincipal.add(new JLabel("Idade:"));
         txtIdade = new JTextField();
-        panel.add(txtIdade);
+        painelPrincipal.add(txtIdade);
 
-        panel.add(new JLabel("Tipo:"));
+        painelPrincipal.add(new JLabel("Tipo:"));
         comboTipo = new JComboBox<>(new String[]{"Cachorro", "Gato"});
-        panel.add(comboTipo);
+        painelPrincipal.add(comboTipo);
 
-        // Campos Cachorro
-        panel.add(new JLabel("Raça:"));
+        // Campos de Raça e Cor/Pelo
+        painelPrincipal.add(new JLabel("Raça:"));
         txtRaca = new JTextField();
-        panel.add(txtRaca);
+        painelPrincipal.add(txtRaca);
 
-        checkVacinado = new JCheckBox("Vacinado");
-        panel.add(checkVacinado);
-        panel.add(new JLabel("")); // espaço
-
-        // Campos Gato
-        panel.add(new JLabel("Cor do Pelo:"));
+        painelPrincipal.add(new JLabel("Cor do Pelo:"));
         txtCorPelo = new JTextField();
-        panel.add(txtCorPelo);
+        painelPrincipal.add(txtCorPelo);
+
+        // Checkboxes
+        checkVacinado = new JCheckBox("Vacinado");
+        painelPrincipal.add(checkVacinado);
+        painelPrincipal.add(new JLabel(""));
 
         checkCastrado = new JCheckBox("Castrado");
-        panel.add(checkCastrado);
-        panel.add(new JLabel("")); // espaço
+        painelPrincipal.add(checkCastrado);
+        painelPrincipal.add(new JLabel(""));
 
-        // Novo campo Observações
-        panel.add(new JLabel("Observações:"));
+        // Campo Observações
+        painelPrincipal.add(new JLabel("Observações:"));
         txtObservacoes = new JTextArea(3, 20);
-        panel.add(new JScrollPane(txtObservacoes));
+        painelPrincipal.add(new JScrollPane(txtObservacoes));
 
         JButton btnCadastrar = new JButton("Cadastrar");
-        panel.add(btnCadastrar);
+        painelPrincipal.add(btnCadastrar);
 
         JButton btnVoltar = new JButton("Voltar");
-        panel.add(btnVoltar);
+        painelPrincipal.add(btnVoltar);
 
         btnCadastrar.addActionListener(e -> cadastrarAnimal());
         btnVoltar.addActionListener(e -> dispose());
@@ -90,22 +95,29 @@ public class CadastroFrame extends JFrame {
             String nome = txtNome.getText();
             int idade = Integer.parseInt(txtIdade.getText());
             String tipo = (String) comboTipo.getSelectedItem();
-            String observacoes = txtObservacoes.getText(); // pega observações
+            String observacoes = txtObservacoes.getText();
+
+            String corPeloGeral = txtCorPelo.getText();
+            boolean castradoGeral = checkCastrado.isSelected();
+            boolean vacinadoGeral = checkVacinado.isSelected();
 
             if (tipo.equals("Cachorro")) {
                 String raca = txtRaca.getText();
-                boolean vacinado = checkVacinado.isSelected();
 
-                Cachorro cachorro = CadastroService.criarCachorro(nome, idade, raca, vacinado, observacoes);
+                // 7 Argumentos
+                Cachorro cachorro = CadastroService.criarCachorro(
+                        nome, idade, raca, vacinadoGeral, castradoGeral, corPeloGeral, observacoes
+                );
                 listaAnimais.add(cachorro);
 
                 JOptionPane.showMessageDialog(this, "Cachorro cadastrado com sucesso!");
 
-            } else {
-                String corPelo = txtCorPelo.getText();
-                boolean castrado = checkCastrado.isSelected();
+            } else { // Gato
 
-                Gato gato = CadastroService.criarGato(nome, idade, corPelo, castrado, observacoes);
+                // 6 Argumentos
+                Gato gato = CadastroService.criarGato(
+                        nome, idade, corPeloGeral, castradoGeral, vacinadoGeral, observacoes
+                );
                 listaAnimais.add(gato);
 
                 JOptionPane.showMessageDialog(this, "Gato cadastrado com sucesso!");
@@ -117,6 +129,9 @@ public class CadastroFrame extends JFrame {
             JOptionPane.showMessageDialog(this, "Idade precisa ser um número inteiro.");
         } catch (PetInvalidoException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro no cadastro. Verifique a sincronização de argumentos.", "Erro Fatal", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
 

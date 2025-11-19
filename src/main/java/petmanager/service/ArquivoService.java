@@ -11,9 +11,7 @@ public class ArquivoService {
 
     private static final String CAMINHO = "animais.txt";
 
-    // ---------------------------------------------------------
     // SALVAR LISTA COMPLETA
-    // ---------------------------------------------------------
     public static void salvarAnimais(ArrayList<Animal> lista) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(CAMINHO))) {
             for (Animal a : lista) {
@@ -23,9 +21,7 @@ public class ArquivoService {
         }
     }
 
-    // ---------------------------------------------------------
     // CARREGAR LISTA COMPLETA
-    // ---------------------------------------------------------
     public static ArrayList<Animal> carregarAnimais() throws IOException {
         ArrayList<Animal> lista = new ArrayList<>();
 
@@ -39,62 +35,72 @@ public class ArquivoService {
                 if (a != null) lista.add(a);
             }
         }
-
         return lista;
     }
 
-    // ---------------------------------------------------------
     // Serialização -> transforma objeto em String
-    // ---------------------------------------------------------
     private static String serializar(Animal a) {
 
-        // CACHORRO
+        // CACHORRO (Agora com Castrado e CorPelo)
         if (a instanceof Cachorro c) {
             return "CACHORRO;" +
                     c.getNome() + ";" +
                     c.getIdade() + ";" +
                     c.getRaca() + ";" +
                     c.isVacinado() + ";" +
+                    c.isCastrado() + ";" +  // <-- NOVO: Castrado
+                    c.getCorPelo() + ";" +  // <-- NOVO: CorPelo
                     c.getObservacoes();
         }
 
-        // GATO
+        // GATO (Agora com Vacinado)
         if (a instanceof Gato g) {
             return "GATO;" +
                     g.getNome() + ";" +
                     g.getIdade() + ";" +
                     g.getCorPelo() + ";" +
                     g.isCastrado() + ";" +
+                    g.isVacinado() + ";" +  // <-- NOVO: Vacinado
                     g.getObservacoes();
         }
-
         return null;
     }
 
-    // ---------------------------------------------------------
     // Desserialização -> transforma String em objeto
-    // ---------------------------------------------------------
     private static Animal deserializar(String linha) {
 
-        String[] p = linha.split(";", 6); // <-- permite observações com ";"
+        String[] p = linha.split(";"); // Removemos o limite 6
+
+        if (p.length < 5) return null; // Linha muito curta
+
         String tipo = p[0];
         String nome = p[1];
         int idade = Integer.parseInt(p[2]);
 
         if (tipo.equals("CACHORRO")) {
+            if (p.length < 7) return null; // Linha incompleta (menos de 7 atributos específicos)
+
             String raca = p[3];
             boolean vacinado = Boolean.parseBoolean(p[4]);
-            String obs = p.length >= 6 ? p[5] : "";
-            return new Cachorro(nome, idade, raca, vacinado, obs);
+            boolean castrado = Boolean.parseBoolean(p[5]); // <-- NOVO: Castrado
+            String corPelo = p[6];                        // <-- NOVO: CorPelo
+            String obs = p.length > 7 ? p[7] : "";
+
+            // ATENÇÃO: Construtor deve bater com 7 argumentos
+            return new Cachorro(nome, idade, raca, vacinado, castrado, corPelo, obs);
         }
 
         if (tipo.equals("GATO")) {
+            if (p.length < 6) return null; // Linha incompleta (menos de 6 atributos específicos)
+
             String corPelo = p[3];
             boolean castrado = Boolean.parseBoolean(p[4]);
-            String obs = p.length >= 6 ? p[5] : "";
-            return new Gato(nome, idade, corPelo, castrado, obs);
-        }
+            boolean vacinado = Boolean.parseBoolean(p[5]); // <-- NOVO: Vacinado
+            String obs = p.length > 6 ? p[6] : "";
 
+            // ATENÇÃO: Construtor deve bater com 6 argumentos
+            return new Gato(nome, idade, corPelo, castrado, vacinado, obs);
+        }
         return null;
     }
 }

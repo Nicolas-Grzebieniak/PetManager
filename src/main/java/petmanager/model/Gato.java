@@ -4,11 +4,14 @@ public class Gato extends Animal {
 
     private String corPelo;
     private boolean castrado;
+    private boolean vacinado; // <-- NOVO ATRIBUTO
 
-    public Gato(String nome, int idade, String corPelo, boolean castrado, String observacoes) {
+    // Construtor atualizado para incluir vacinado
+    public Gato(String nome, int idade, String corPelo, boolean castrado, boolean vacinado, String observacoes) {
         super(nome, idade, "Gato", observacoes);
         this.corPelo = corPelo;
         this.castrado = castrado;
+        this.vacinado = vacinado; // <-- NOVO
     }
 
     // GETTERS E SETTERS
@@ -27,6 +30,16 @@ public class Gato extends Animal {
     public void setCastrado(boolean castrado) {
         this.castrado = castrado;
     }
+
+    // NOVO GETTER E SETTER
+    public boolean isVacinado() {
+        return vacinado;
+    }
+
+    public void setVacinado(boolean vacinado) {
+        this.vacinado = vacinado;
+    }
+    // FIM NOVO GETTER E SETTER
 
     @Override
     public String emitirSom() {

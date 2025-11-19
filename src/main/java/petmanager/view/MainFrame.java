@@ -2,11 +2,13 @@ package petmanager.view;
 
 import petmanager.model.Animal;
 import petmanager.service.ArquivoService;
+import petmanager.view.CadastroFrame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame   {
 
     // Lista global de animais
     public static ArrayList<Animal> listaAnimais = new ArrayList<>();

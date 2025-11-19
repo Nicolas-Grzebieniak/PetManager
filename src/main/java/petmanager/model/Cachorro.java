@@ -4,11 +4,16 @@ public class Cachorro extends Animal {
 
     private String raca;
     private boolean vacinado;
+    private boolean castrado;  // <-- NOVO ATRIBUTO
+    private String corPelo;    // <-- NOVO ATRIBUTO
 
-    public Cachorro(String nome, int idade, String raca, boolean vacinado, String observacoes) {
+    // Construtor atualizado para incluir castrado e corPelo
+    public Cachorro(String nome, int idade, String raca, boolean vacinado, boolean castrado, String corPelo, String observacoes) {
         super(nome, idade, "Cachorro", observacoes);
         this.raca = raca;
         this.vacinado = vacinado;
+        this.castrado = castrado;
+        this.corPelo = corPelo;
     }
 
     public String getRaca() {
@@ -26,6 +31,24 @@ public class Cachorro extends Animal {
     public void setVacinado(boolean vacinado) {
         this.vacinado = vacinado;
     }
+
+    // NOVOS GETTERS E SETTERS
+    public boolean isCastrado() {
+        return castrado;
+    }
+
+    public void setCastrado(boolean castrado) {
+        this.castrado = castrado;
+    }
+
+    public String getCorPelo() {
+        return corPelo;
+    }
+
+    public void setCorPelo(String corPelo) {
+        this.corPelo = corPelo;
+    }
+    // FIM NOVOS GETTERS E SETTERS
 
     @Override
     public String emitirSom() {

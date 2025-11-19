@@ -19,7 +19,8 @@ public class ListaFrame extends JFrame {
         this.listaAnimais = listaAnimais;
 
         setTitle("Lista de Animais Cadastrados");
-        setSize(950, 450);
+        // Ajustei o tamanho para 1200 para caber todas as colunas sem Dono
+        setSize(1200, 450);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
@@ -48,7 +49,7 @@ public class ListaFrame extends JFrame {
         atualizarTabela(); // carrega ao abrir
     }
 
-    // ---------------- MÉTODO PARA RECARREGAR TABELA ----------------
+    // ---------------- MÉTODO PARA RECARREGAR TABELA (CORRIGIDO) ----------------
     private void atualizarTabela() {
 
         model.setRowCount(0); // limpa tabela
@@ -57,20 +58,33 @@ public class ListaFrame extends JFrame {
 
             String tipo = animal instanceof Cachorro ? "Cachorro" : "Gato";
 
+            // Valores padrão (se não forem preenchidos nos blocos abaixo)
             String raca = "-";
             String corPelo = "-";
             String vacinado = "-";
             String castrado = "-";
             String observacoes = animal.getObservacoes();
 
+            // 1. Lógica para CACHORRO
             if (animal instanceof Cachorro c) {
                 raca = c.getRaca();
                 vacinado = c.isVacinado() ? "Sim" : "Não";
+
+                // CORREÇÃO: O Cachorro agora tem estes atributos e deve preenchê-los
+                castrado = c.isCastrado() ? "Sim" : "Não";
+                corPelo = c.getCorPelo();
             }
 
+            // 2. Lógica para GATO
             if (animal instanceof Gato g) {
                 corPelo = g.getCorPelo();
                 castrado = g.isCastrado() ? "Sim" : "Não";
+
+                // CORREÇÃO: O Gato agora tem 'vacinado' e deve preenchê-lo
+                vacinado = g.isVacinado() ? "Sim" : "Não";
+
+                // Garantir que a coluna Raça não mostre lixo se o valor padrão for alterado
+                raca = "-";
             }
 
             model.addRow(new Object[]{
